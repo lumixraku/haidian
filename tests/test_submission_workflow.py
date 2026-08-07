@@ -698,6 +698,31 @@ class SubmissionWorkflowTests(unittest.TestCase):
             self.assertTrue(report.ok, "\n".join(report.errors))
             self.assertTrue(report.maintainer_bypass)
 
+    def test_maintainer_bypass_allows_submissions_root_readme(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.write(root, "submissions/README.md", "# Submission documentation\n")
+            report = validate_submission(
+                root,
+                "maintainer",
+                ["submissions/README.md"],
+                ["maintainer"],
+            )
+            self.assertTrue(report.ok, "\n".join(report.errors))
+            self.assertTrue(report.maintainer_bypass)
+            self.assertEqual([], report.proposal_files)
+
+    def test_participant_cannot_modify_submissions_root_readme(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.write(root, "submissions/README.md", "# Submission documentation\n")
+            report = validate_submission(root, "alice", ["submissions/README.md"])
+            self.assertFalse(report.ok)
+            self.assertIn(
+                "only maintainers may edit submissions root documentation",
+                "\n".join(report.errors),
+            )
+
     def test_review_artifacts_cannot_be_committed(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

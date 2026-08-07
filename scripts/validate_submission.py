@@ -137,6 +137,9 @@ PARTICIPANT_PROTECTED_GLOBAL_FILES = {
     "submissions-data.js",
     "gallery-publication.json",
 }
+MAINTAINER_CONTROLLED_SUBMISSIONS_ROOT_FILES = {
+    "submissions/README.md",
+}
 PROTECTED_REVIEW_ARTIFACT_PREFIXES = (
     ".maintainer-review/",
     "docs/reviews/",
@@ -1724,6 +1727,13 @@ def validate_submission(
             report.add_error(
                 f"{path}: maintainer review artifacts must stay local and only be shared through PR comments"
             )
+            continue
+
+        if path in MAINTAINER_CONTROLLED_SUBMISSIONS_ROOT_FILES:
+            if not report.maintainer_bypass:
+                report.add_error(
+                    f"{path}: only maintainers may edit submissions root documentation"
+                )
             continue
 
         if not report.maintainer_bypass:
