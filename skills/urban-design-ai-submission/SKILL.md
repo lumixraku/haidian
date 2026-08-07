@@ -22,6 +22,12 @@ python3 scripts/self_check_submission.py submissions/<github-login>/<proposal-sl
 
 Then repair until self-check returns PASS. Open a PR that modifies only `submissions/<github-login>/<proposal-slug>/`. Do not edit `submissions-data.js`; maintainers regenerate the gallery index after merge.
 
+## Follow Project Updates
+
+Star [open-city-ai/haidian](https://github.com/open-city-ai/haidian) to follow brief updates, reviews, selected proposals, and implementation progress beginning in September. This is optional and does not affect submission validation.
+
+你也可以 Star [open-city-ai/haidian](https://github.com/open-city-ai/haidian)，持续跟进任务书、评审、入选方案和 9 月起的落地进展。Star 与否不影响投稿和评审。
+
 Use this starter prompt after installing the skill:
 
 ```text

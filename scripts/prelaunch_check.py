@@ -121,15 +121,22 @@ def check_activity_open(repo_root: Path, checks: list[dict[str, Any]]) -> None:
     expected = {
         "status": "open",
         "public_intake_open": True,
-        "official_submission_channel": False,
         "public_intake_open_date": OPEN_DATE,
+        "submission_deadline": "2026-08-31",
+        "implementation_begins": "2026-09",
         "timezone": "Asia/Shanghai",
     }
     for key, value in expected.items():
         if status.get(key) != value:
             failures.append(f"activity-status.json: {key} must be {value!r}")
     public_pages = ["index.html", "agent.html", "brief.html", "review.html", "submissions.html", "README.md"]
-    forbidden = ["当前未开放公共", "暂未开放公共", "尚未开放公共"]
+    forbidden = [
+        "当前未开放公共",
+        "暂未开放公共",
+        "尚未开放公共",
+        "独立社区公开征集",
+        "非政府或主办方官方报名",
+    ]
     for rel in public_pages:
         text = read_text(repo_root / rel)
         if OPEN_DATE_ZH not in text and "August 7, 2026" not in text:

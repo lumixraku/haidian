@@ -49,8 +49,9 @@ class PrelaunchCheckTests(unittest.TestCase):
         status = json.loads((ROOT / "activity-status.json").read_text(encoding="utf-8"))
         self.assertEqual("open", status["status"])
         self.assertTrue(status["public_intake_open"])
-        self.assertFalse(status["official_submission_channel"])
         self.assertEqual("2026-08-07", status["public_intake_open_date"])
+        self.assertEqual("2026-08-31", status["submission_deadline"])
+        self.assertEqual("2026-09", status["implementation_begins"])
         self.assertEqual("Asia/Shanghai", status["timezone"])
         for rel in ["index.html", "agent.html", "brief.html", "review.html", "submissions.html", "README.md"]:
             with self.subTest(path=rel):
@@ -58,6 +59,8 @@ class PrelaunchCheckTests(unittest.TestCase):
                 self.assertTrue("2026年8月7日" in text or "August 7, 2026" in text)
                 self.assertNotIn("当前未开放公共", text)
                 self.assertNotIn("暂未开放公共", text)
+                self.assertNotIn("独立社区公开征集", text)
+                self.assertNotIn("非政府或主办方官方报名", text)
 
     def test_public_docs_do_not_use_old_boundary_failure_language(self) -> None:
         public_docs = [
