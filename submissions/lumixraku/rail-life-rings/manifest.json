@@ -23,7 +23,7 @@
       "path": "proposal.md",
       "role": "narrative",
       "required": true,
-      "sha256": "4a325706be21e3d63a42f93ea453a45aa4bd5504556c3392fb8e7f8549f3ccdf"
+      "sha256": "7afd3875f5ac78114bd8a89e9b78b968ca3d583457a072e1805de8a423efa1cc"
     },
     {
       "path": "agent.json",
@@ -77,7 +77,7 @@
       "path": "report/proposal.html",
       "role": "rendered_proposal_html",
       "required": true,
-      "sha256": "c9d72b22933d0bbad0875d0ee836dcb25abeaa31aa94d489a9307b40cebccad9"
+      "sha256": "4a4bf6427eb6fbba5b61b38370f176777f97308bdab8d289eb2ebf777fea1f62"
     },
     {
       "path": "report/narrative.md",
