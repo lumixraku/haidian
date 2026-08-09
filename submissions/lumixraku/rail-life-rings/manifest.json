@@ -95,13 +95,13 @@
       "path": "drawings/a3-booklet.pdf",
       "role": "drawing",
       "required": true,
-      "sha256": "43b06a6456051a1e3055d2ea550a9696eb12fc3c6494a27ced0377d8ed2ff8e7"
+      "sha256": "1b1c1c4faa792a997b35f8575cc19a85cc01286e84c20a8c529e15988625ed33"
     },
     {
       "path": "drawings/a0-boards.pdf",
       "role": "drawing",
       "required": true,
-      "sha256": "0930f4c170ad530c80c629550e43bb973bff25408a167ae2d4b9bd78b04f0baf"
+      "sha256": "01e1b4c85be42a00ada7f4e9712641c832582a121e51a20518277a035288cdd7"
     },
     {
       "path": "visual/index.html",
@@ -113,31 +113,31 @@
       "path": "assets/figures/key-areas.png",
       "role": "proposal_figure",
       "required": true,
-      "sha256": "fecd1945923372c3be417b4770adc83ae04eb69e8332a465e749b7e3775a52e0"
+      "sha256": "31b484097c14b4b1702d38e94d23f0de9e62cc72eea30a61cb1b73693643fa15"
     },
     {
       "path": "assets/figures/land-use-structure.png",
       "role": "proposal_figure",
       "required": true,
-      "sha256": "3fa1581ff29a56d87fcffcbcadfbb0227a9ddfcf560d4599aabc563246d71aa6"
+      "sha256": "dbee0a77fd165c51c4769a6c4975122c426108ce1c5d1595d20c9eeafd2419a5"
     },
     {
       "path": "assets/figures/metrics-evidence.png",
       "role": "proposal_figure",
       "required": true,
-      "sha256": "d9f08e8319949ae335f6405dad0b16999c958e6d20b195b3a364ad06689b2f60"
+      "sha256": "0a67b5e769e3a4d5f5e77d57298ca39abdaacca4d09ee4fe6c483febb6a000e0"
     },
     {
       "path": "assets/figures/mobility-bluegreen.png",
       "role": "proposal_figure",
       "required": true,
-      "sha256": "79f4f9a7fc637f1d60c0ebf12314311f3d03d32deda4cbb34ceaba3e9b0ab965"
+      "sha256": "b7325c70a2b5c23dbe557e81702bd28512b0f6f3c0b8c1193bcc055d1cb051b0"
     },
     {
       "path": "assets/figures/site-overview.png",
       "role": "proposal_figure",
       "required": true,
-      "sha256": "2765658491ce605549356843a480b6d936059a2ffeb59aafdb32028a0569cffa"
+      "sha256": "1df68e196622897cb272a899747731a1f54da1a76087c3b6945c8f70b118a661"
     },
     {
       "path": "geometry/buildings.geojson",
