@@ -4,10 +4,11 @@ All geometry is projected to EPSG:32650 (UTM 50N) so distances and walk-time
 rings are metric, not degrees.
 """
 import json
+import math
 import os
 
 from pyproj import Transformer
-from shapely.geometry import LineString, Point, shape
+from shapely.geometry import LineString, Point, Polygon, shape
 from shapely.ops import transform as shp_transform
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -138,11 +139,75 @@ def barrier_lines(roads):
     return out
 
 
-def walk_ring(station, minutes, speed_mpm=75.0, detour=1.35):
-    """Walk-time ring as a reachable area, not a naive circle.
+_ISO = None
 
-    speed 75 m/min is an ordinary-pedestrian pace; detour 1.35 accounts for
-    superblock street pattern. Radius = minutes * speed / detour.
+
+def _isochrones():
+    global _ISO
+    if _ISO is None:
+        p = os.path.join(DATA, "walk_isochrones.json")
+        _ISO = json.load(open(p)) if os.path.exists(p) else {"stations": {}}
+    return _ISO
+
+
+def walk_ring(station, minutes, speed_mpm=75.0, detour=1.75):
+    """Reachable area for a walking budget, measured where measurement exists.
+
+    For the 7 design-area stations this returns the measured isochrone polygon
+    from data/walk_isochrones.json: 16 bearings of real Amap walking routes,
+    reduced to the straight-line distance at which route length reaches
+    minutes * speed_mpm. Returns (polygon, median_reach_m).
+
+    The circle this replaced used detour=1.35 and was wrong two ways. The
+    measured median detour is 1.75, so every ring was drawn too large — the
+    seven 15-minute rings covered 1526 ha on paper against 961 ha reachable.
+    More importantly the reachable area is not a circle at all: at 学知园 the
+    5-minute reach is 284m along the clear bearing and 38m across 京藏高速, so
+    no single radius is right. A circle simultaneously overstates the severed
+    bearings and understates the open ones, which contradicts this proposal's
+    own argument about nominal-versus-actual access.
+
+    The 14 corridor stations were not measured and fall back to a circle at the
+    measured median detour of 1.75. That is an estimate, and callers that draw
+    it should say so rather than implying the same evidence basis.
     """
+    iso = _isochrones()["stations"].get(station.get("name_zh"))
+    if iso:
+        ring = iso["rings"].get(str(int(minutes)))
+        if ring and len(ring["vertices"]) >= 8:
+            pts = []
+            for bearing, reach in ring["vertices"]:
+                # bearing is compass degrees (0 = north, clockwise); the
+                # projected CRS is x=east, y=north.
+                th = math.radians(90.0 - bearing)
+                pts.append((station["x"] + reach * math.cos(th),
+                            station["y"] + reach * math.sin(th)))
+            poly = Polygon(pts)
+            if poly.is_valid and poly.area > 0:
+                return poly, ring["median_m"]
     r = minutes * speed_mpm / detour
     return station["pt"].buffer(r, resolution=64), r
+
+
+def is_measured(station):
+    """True when this station has a measured isochrone rather than a circle."""
+    return station.get("name_zh") in _isochrones()["stations"]
+
+
+def reach_at(station, minutes, angle_deg):
+    """Boundary distance along a math angle (0 = east, CCW), in metres.
+
+    Ring labels used to sit at radius * 1.06, which only works for a circle.
+    A measured isochrone varies by bearing, so a fixed radius puts the label
+    inside the shape on the long bearings and far outside it on the short ones.
+    """
+    iso = _isochrones()["stations"].get(station.get("name_zh"))
+    if iso:
+        ring = iso["rings"].get(str(int(minutes)))
+        if ring and ring["vertices"]:
+            bearing = (90.0 - angle_deg) % 360.0
+            best = min(ring["vertices"],
+                       key=lambda v: min(abs(v[0] - bearing),
+                                         360 - abs(v[0] - bearing)))
+            return best[1]
+    return walk_ring(station, minutes)[1]

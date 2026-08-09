@@ -9,9 +9,9 @@
     },
     {
       "id": "A-TOD-001",
-      "status": "conceptual_design_assumption",
-      "statement": "Three TOD nodes are located conceptually at the centers of the repository provisional key areas, not surveyed station entrances.",
-      "impact": "5/10/15-minute rings are design heuristics; official station entrances and walking-network surveys must replace them."
+      "status": "measured_with_residual_survey_items",
+      "statement": "Station-area extents for the 7 design-area stations are measured walking isochrones, not circles: 16 bearings per station, 784 real walking routes from the Amap walking-route API measured 2026-08-09, reduced to the straight-line distance each bearing reaches on a 75 m/min walking budget. Station origins are real station coordinates, not key-area polygon centroids. The 14 coordinated-research-area stations are not measured and use a circle at the measured median detour of 1.75, labelled as an estimate on the drawings.",
+      "impact": "Supersedes the earlier radius = minutes * 75 / 1.35 circle, which was wrong two ways: the measured median detour is 1.75, so the seven 15-minute rings claimed 1526 ha against 961 ha actually reachable, overstating by 37%; and reachable extent is not circular at all, ranging at 学知园 from 284 m on the clear bearing to 38 m across 京藏高速. Residual survey items: the Amap network does not account for crossing signal delay, walled breaks or accessibility, and station entrances are still OpenStreetMap points rather than surveyed entrances."
     },
     {
       "id": "A-WALK-001",

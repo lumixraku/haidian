@@ -210,9 +210,9 @@ def fig_site_overview(d):
 # --- figure 2: walk rings and three-level scope -----------------------------
 def fig_land_use(d):
     fig = new_fig(300, 190)
-    ax0 = head(fig, "5 / 10 / 15 分钟圈与三层范围传导",
-               "半径按 分钟 × 75m/min ÷ 1.35 绕行系数换算，从真实站位起算，"
-               "并叠加高速与主干路切割线", "图 2 / 5")
+    ax0 = head(fig, "5 / 10 / 15 分钟实测等时圈与三层范围传导",
+               "7 座逐站车站为实测等时圈：每站 16 方位高德步行路径反算可达边界，"
+               "故不是圆；并叠加高速与主干路切割线", "图 2 / 5")
     # The design area is a 1.4km x 9.7km strip (1:7). A wide axes would have to
     # expand the view sideways to keep circles round, leaving the sheet mostly
     # empty -- so the map is a portrait strip and the freed width carries the
@@ -278,11 +278,13 @@ def fig_land_use(d):
     blocks = [
         (0.0, "三圈：按时间分配内容，不按图上直线半径", 7.4, D.C["ink"], "bold", 0.014),
     ]
+    # Seven-station median of the measured isochrones, not a formula radius.
+    MEASURED = {5: 174, 10: 408, 15: 712}
     for mins, _ in RINGS:
-        r = mins * 75.0 / 1.35
         name = {5: "站城复合核心", 10: "全龄生活混合圈",
                 15: "普通居住与社区圈"}[mins]
-        blocks.append((0.0, "%d 分钟 · %s · 半径 %dm" % (mins, name, round(r)),
+        blocks.append((0.0, "%d 分钟 · %s · 七站实测中位 %dm"
+                       % (mins, name, MEASURED[mins]),
                        6.4, D.C["ink"], "bold", 0.006))
         blocks.append((0.0, {
             5: "通勤接驳、早餐与夜间餐饮、便民服务、非机动车停放、轮班休息。",
@@ -290,10 +292,12 @@ def fig_land_use(d):
             15: "既有社区更新、普通就业岗位、教育医疗补齐、公交与需求响应接驳。",
         }[mins], 5.8, D.C["mute"], "normal", 0.016))
     blocks += [
-        (0.0, "为什么不是同心圆", 7.0, D.C["warn"], "bold", 0.010),
-        (0.0, "直线半径会把“名义可达”当成“实际可达”。图上红线是高速与主干路，"
-              "行人需绕到最近过街点，因此同一半径内的东西两侧步行时间可能相差一倍以上。"
-              "缝合径优先解决这些断点。", 5.8, D.C["mute"], "normal", 0.020),
+        (0.0, "为什么不是同心圆：实测证据", 7.0, D.C["warn"], "bold", 0.010),
+        (0.0, "此前版本按 分钟 × 75 ÷ 1.35 画圆。实测绕行系数中位为 1.75，"
+              "七站 15 分钟圈图面合计 1526 公顷而实测可达仅 961 公顷，虚报 37%。"
+              "且可达范围本不是圆：学知园 5 分钟在通畅方位 284m、跨京藏高速方位仅 38m。"
+              "圆会同时高估被切断方位、低估通畅方位。缝合径优先解决这些断点。",
+         5.8, D.C["mute"], "normal", 0.020),
         (0.0, "三层范围传导", 7.0, D.C["rail"], "bold", 0.010),
         (0.0, "统筹研究范围 43.6km²：廊道结构、轨道接驳与跨区关系。\n"
               "总体设计范围 11.4km²：逐站设计深度，7 站全覆盖。\n"
@@ -304,8 +308,8 @@ def fig_land_use(d):
     ]
     D.fit_blocks(tx, blocks, 0.985, 0.06)
 
-    lg = [Line2D([], [], color=c, lw=1.0, label="%d 分钟（%dm）"
-                 % (m, round(m * 75.0 / 1.35))) for m, c in RINGS]
+    lg = [Line2D([], [], color=c, lw=1.0, label="%d 分钟实测（中位 %dm）"
+                 % (m, {5: 174, 10: 408, 15: 712}[m])) for m, c in RINGS]
     lg.append(Line2D([], [], color=D.C["warn"], lw=1.5, label="切割线"))
     ax.legend(handles=lg, loc="upper left", prop=D.font(4.6),
               framealpha=0.94, edgecolor=D.C["hair"], borderpad=0.5,
@@ -394,7 +398,8 @@ def fig_key_areas(d):
                               5.6, D.C["mute"], "normal", 0.014))
         D.fit_blocks(tx, blocks, 0.985, 0.02)
     foot(ax0, "重点区几何为 provisional，非官方红线。PROV-KEY-003 的 polygon "
-              "与真实大钟寺站相距约 1.7km，图中以站点为准，仓库几何未擅改。")
+              "最近边界距真实大钟寺站约 1.7km、形心约 2.2km，图中以站点为准，"
+              "仓库几何未擅改。")
     fig.savefig(os.path.join(OUT, "key-areas.png"),
                 facecolor=fig.get_facecolor())
     plt.close(fig)
@@ -611,11 +616,13 @@ def fig_metrics(d):
         (0.0, "待补数据（发布后须整体复算）", 7.0, D.C["warn"], "bold", 0.012),
         (0.0, "· 官方精确总体与重点区边界\n· 站点出入口实测位置\n"
               "· 控规指标与容积率\n· 道路红线与权属\n· 市政、消防与文保控制线\n"
-              "· 真实步行路网等时圈\n· 站厅客流与过街延误实测",
+              "· 统筹研究范围 14 站等时圈（7 站已实测）\n"
+              "· 站厅客流与过街延误实测",
          5.8, D.C["mute"], "normal", 0.022),
         (0.0, "已知数据偏差", 6.8, D.C["warn"], "bold", 0.008),
         (0.0, "PROV-KEY-003 标注为大钟寺，但 polygon 位于 lat 39.944–39.950，"
-              "真实大钟寺站在 39.965，相距约 1.7km。图纸以真实站位为准并标注该偏差，"
+              "真实大钟寺站在 39.965，最近边界相距约 1.7km、形心约 2.2km。"
+              "图纸以真实站位为准并标注该偏差，"
               "仓库几何未擅改。", 5.7, D.C["ink"], "normal", 0.020),
         (0.0, "自检状态", 6.8, D.C["park"], "bold", 0.008),
         (0.0, "self_check_submission.py 通过，可进入正式评审；"

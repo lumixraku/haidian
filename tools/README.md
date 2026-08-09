@@ -26,7 +26,7 @@ python -m venv .venv
 
 | 文件 | 作用 |
 | --- | --- |
-| `basemap.py` | 底图与投影。所有几何投到 EPSG:32650（UTM 50N），距离与步行圈按米算而不是按度。含 `walk_ring()`：`半径 = 分钟 × 75 米/分 ÷ 1.35 绕行系数` |
+| `basemap.py` | 底图与投影。所有几何投到 EPSG:32650（UTM 50N），距离与步行圈按米算而不是按度。含 `walk_ring()`：7 座逐站车站读 `data/walk_isochrones.json` 里的实测等时圈多边形，其余 14 座回退为圆（按实测中位系数 1.75） |
 | `draw.py` | 三个生成器共用的绘图层：页面框、标签避让、CJK 折行、图例、比例尺、指北针。**改这里会同时影响 A0、A3 和五张图** |
 | `make_a0.py` | 9 张 A0 展板：`L-01` 廊道结构与 21 站分级，`L-02`～`L-08` 逐站一整张，`L-09` 重点区原型与数据校核 |
 | `make_a3.py` | 11 页 A3 方案册：封面、廊道总览、7 站逐站一页、廊道接驳、分期 |
@@ -34,6 +34,7 @@ python -m venv .venv
 | `station_program.py` | 7 座逐站车站的功能配置与 14 座廊道站的接驳角色，纯数据 |
 | `audit.py` | 版式审计：逐 span 检查文字越界与文字框重叠 |
 | `fetch_base.py` / `fetch_gw.py` | 从 Overpass 拉 OSM 底图到 `data/`。`data/` 已有文件就跳过，正常情况不需要再跑 |
+| `fetch_walk.py` | 实测 7 座车站的步行等时圈到 `data/walk_isochrones.json`。需要 `AMAP_KEY` 环境变量，约 784 次请求、十几分钟。数据已在库里，正常情况不需要再跑 |
 
 ### `draw.py` 里两个容易踩的地方
 
@@ -47,6 +48,9 @@ python -m venv .venv
 - `stations.geojson` — 21 座车站，含真实坐标、线路、`scope_level`。**坐标来自 OpenStreetMap，是 provisional 数据**，须以实测出入口替换后复算站域。
 - `lines_by_station.json` — 车站线路对照。
 - `osm_roads.json`（2343 条分级道路）、`osm_rail.json`（244 条轨道）、`osm_green.json`、`osm_water.json` — Overpass 导出，bbox `39.925,116.295,40.045,116.385`。© OpenStreetMap contributors，ODbL。
+- `walk_isochrones.json` — 7 座逐站车站的实测步行等时圈。每站 16 个方位、每方位 7 个探测距离，共 784 条真实步行路径，按 75 米/分插值出每个方位实际能走到的直线距离。由 `fetch_walk.py` 生成，© 高德软件有限公司；只保留反算出的距离数值，不含路网数据或接口返回原文。
+
+`walk_isochrones.json` 里的 `_failed_probes` 必须是 0。这个字段是有来由的：早先一版用 8 个线程并发，17 个方位里丢 3 到 12 个，异常被吞成 0 米顶点，打印出"中位 0 米"——看着像重大发现，其实是 bug。现在固定 3 个线程、6 次退避重试，并逐站报告不完整方位。
 
 范围边界不在这里：`basemap.py` 直接读仓库自带的 `brief/site-package/geometry/provisional_boundaries.geojson`。这份边界是 provisional，不是官方红线。
 

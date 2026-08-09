@@ -207,8 +207,9 @@ def plate1(pdf, total):
         (0.0, "站点分级台账", 13.5, D.C["ink"], "bold", 0.012),
         (0.0, "分级依据：官方公告四至（北至北五环路、东至京藏高速与学院路、"
               "南至西直门外大街、西至万泉河路与大钟寺东路），对每座车站逐一做"
-              "点面判定。站位取自 OpenStreetMap，属概念定位；出入口与步行网络"
-              "须以实测数据替换。", 7.6, D.C["mute"], "normal", 0.014),
+              "点面判定。站位取自 OpenStreetMap，属概念定位；7 座逐站设计车站的"
+              "站域已按高德步行路径实测为等时圈，出入口位置仍须以实测替换。",
+         7.6, D.C["mute"], "normal", 0.014),
         (0.0, "总体设计范围内 · 逐站详细设计（7座）", 10.5, D.C["rail"], "bold",
          0.014),
     ]
@@ -262,9 +263,14 @@ def plate_station(pdf, s, idx, total):
     line_label = ("%s号线" % lines_txt) if s["mode"] == "subway" else lines_txt
     ka = s["key_area"] or ("近%s %.0fm" % (s["nearest_key_area"],
                                           s["nearest_key_area_distance_m"]))
-    r5 = round(B.walk_ring(s, 5)[1])
-    r10 = round(B.walk_ring(s, 10)[1])
-    r15v = round(B.walk_ring(s, 15)[1])
+    # Measured isochrones vary by bearing, so a single "278m" in the legend
+    # would be a false claim. Report median and the observed spread.
+    rng = {}
+    for mins in (5, 10, 15):
+        poly, med = B.walk_ring(s, mins)
+        rs = [B.reach_at(s, mins, a) for a in range(0, 360, 22)]
+        rng[mins] = (round(med), round(min(rs)), round(max(rs)))
+    r5, r10, r15v = rng[5][0], rng[10][0], rng[15][0]
 
     ax0, m, ts = D.sheet_frame(
         fig, PAGE, "%s站 · %s" % (s["name_zh"], p["role"]),
@@ -333,11 +339,11 @@ def plate_station(pdf, s, idx, total):
           else D.C["ink"], "ms": 9}, "本站：%s" % s["name_zh"]),
         ({"kind": "dot", "c": D.C["mute"], "ms": 6}, "邻近轨道站"),
         ({"kind": "patch", "c": D.C["rail"], "alpha": 0.35},
-         "5分钟站域 %dm" % r5),
+         "5分钟实测 中位%dm（%d-%dm）" % rng[5]),
         ({"kind": "patch", "c": D.C["rail"], "alpha": 0.22},
-         "10分钟站域 %dm" % r10),
+         "10分钟实测 中位%dm（%d-%dm）" % rng[10]),
         ({"kind": "patch", "c": D.C["rail"], "alpha": 0.14},
-         "15分钟站域 %dm" % r15v),
+         "15分钟实测 中位%dm（%d-%dm）" % rng[15]),
         ({"kind": "line", "c": D.C["warn"], "lw": 3.0},
          "立体切割：高速/快速路（%d 段）" % len(cut)),
         ({"kind": "line", "c": D.C["warn"], "lw": 1.8, "dashes": (6, 4)},
@@ -356,12 +362,14 @@ def plate_station(pdf, s, idx, total):
     # ring radii on three separate bearings; a shared baseline is what made
     # the old raster figures unreadable
     for mins, r, ang in ((5, r5, 96), (10, r10, 210), (15, r15v, 330)):
-        # anchor just outside the ring, not on it: sitting exactly on the
-        # radius put the stroke through the middle of the text
-        rr = r * 1.06
+        # anchor just outside the boundary on this bearing, not on it: sitting
+        # exactly on it put the stroke through the middle of the text. The
+        # boundary distance is bearing-specific now, so a fixed radius would
+        # land inside the shape on long bearings.
+        rr = B.reach_at(s, mins, ang) * 1.06
         lx = s["x"] + rr * math.cos(math.radians(ang))
         ly = s["y"] + rr * math.sin(math.radians(ang))
-        lp.place(lx, ly, "%d分钟 %dm" % (mins, r), size=10.0, weight="bold",
+        lp.place(lx, ly, "%d分钟 中位%dm" % (mins, r), size=10.0, weight="bold",
                  color=D.C["rail"])
 
     near = [o for o in stations
@@ -395,10 +403,14 @@ def plate_station(pdf, s, idx, total):
     D.fit_blocks(c1, [
         (0.0, "现状诊断", 15.0, D.C["warn"], "bold", 0.020),
         (0.0, p["problem"], 9.6, D.C["ink"], "normal", 0.028),
-        (0.0, "站域口径", 11.5, D.C["ink"], "bold", 0.012),
-        (0.0, "站域以车站出入口为原点按步行可达界定，不用车站中心直线半径。"
-              "半径 = 分钟 × 75 m/min ÷ 1.35 绕行系数，故本站 5 分钟 %dm、"
-              "10 分钟 %dm、15 分钟 %dm。" % (r5, r10, r15v),
+        (0.0, "站域口径：实测等时圈", 11.5, D.C["ink"], "bold", 0.012),
+        (0.0, "站域不是圆。以真实站位为原点、16 个方位各取实测步行路径，"
+              "按 75 m/min 步行预算反算每个方位能走到的直线距离，连成实测可达"
+              "边界。本站 5 分钟中位 %dm（%d-%dm）、10 分钟中位 %dm（%d-%dm）、"
+              "15 分钟中位 %dm（%d-%dm）。方位间差异即切割的直接后果：同一时间"
+              "预算下，通畅方向与被切断方向可差数倍。数据源为高德步行路径规划"
+              "（2026-08-09 实测），仍须以现场步行网络、过街延误与无障碍条件校核。"
+              % (rng[5] + rng[10] + rng[15]),
          8.8, D.C["mute"], "normal", 0.024),
         (0.0, "切割诊断：立体 %d 段 / 平面 %d 段" % (len(cut), len(arter)),
          11.5, D.C["warn"], "bold", 0.012),
@@ -414,13 +426,13 @@ def plate_station(pdf, s, idx, total):
 
     c2 = column(1)
     D.fit_blocks(c2, [
-        (0.0, "5 分钟核心 · %dm" % r5, 15.0, D.C["rail"], "bold", 0.018),
+        (0.0, "5 分钟核心 · 中位%dm" % r5, 15.0, D.C["rail"], "bold", 0.018),
         (0.0, "\n".join("· " + t for t in p["fivemin"]), 9.6, D.C["ink"],
          "normal", 0.030),
-        (0.0, "10 分钟圈 · %dm" % r10, 15.0, D.C["rail"], "bold", 0.018),
+        (0.0, "10 分钟圈 · 中位%dm" % r10, 15.0, D.C["rail"], "bold", 0.018),
         (0.0, "\n".join("· " + t for t in p["tenmin"]), 9.6, D.C["ink"],
          "normal", 0.030),
-        (0.0, "15 分钟圈 · %dm" % r15v, 11.5, D.C["mute"], "bold", 0.012),
+        (0.0, "15 分钟圈 · 中位%dm" % r15v, 11.5, D.C["mute"], "bold", 0.012),
         (0.0, "以既有社区更新为主，不以拆迁换取形式整齐；补齐普通就业、"
               "教育医疗与公交接驳，保留小商户与可承受租金。",
          8.8, D.C["mute"], "normal", 0.024),
@@ -536,13 +548,17 @@ def plate9(pdf, total):
                                  mutation_scale=10 * D.SCALE,
                                  shrinkA=3, shrinkB=3), zorder=30)
     dist_m = dzs["pt"].distance(kd.centroid)
+    # Two distances, because one alone is misleading: the arrow measures to the
+    # polygon centroid, but the nearest edge is what a reviewer checks against.
+    edge_m = dzs["pt"].distance(kd)
     mid_x = (dzs["x"] + kd.centroid.x) / 2
     mid_y = (dzs["y"] + kd.centroid.y) / 2
     # order matters: the two station names are the point of the panel, so they
     # claim their boxes before the centroid annotation, which is free to move
     lp.place(dzs["x"], dzs["y"], "大钟寺站（真实站位，13号线）", size=8.6, weight="bold")
     lp.place(bjb["x"], bjb["y"], "北京北站（S5，市郊铁路）", size=8.6, weight="bold")
-    lp.place(mid_x, mid_y, "偏差 %.0fm" % dist_m, size=9.5, weight="bold", color=D.C["warn"])
+    lp.place(mid_x, mid_y, "站位至形心 %.0fm" % dist_m, size=9.5, weight="bold",
+             color=D.C["warn"])
     lp.place(kd.centroid.x, kd.centroid.y, "PROV-KEY-003 形心\n（仓库标注为大钟寺重点区）",
              size=8.0, color=D.C["life"])
     D.scale_bar(axd, 500, "500m", loc=(0.07, 0.05))
@@ -575,8 +591,8 @@ def plate9(pdf, total):
         ("尚未解决 / 需业主与官方数据决定", D.C["warn"], [
             "范围口径已定：按官方四至（业主 2026-08-08 确认），上地、清河、"
             "西二旗不出逐站详图",
-            "PROV-KEY-003 大钟寺 polygon 偏差约 %.0fm，须以官方重点区边界复核"
-            % dist_m,
+            "PROV-KEY-003 大钟寺 polygon 形心距真实站位 %.0fm（最近边界 %.0fm），"
+            "须以官方重点区边界复核" % (dist_m, edge_m),
             "官方红线、控规指标、道路红线、权属、文保控制线均未发布",
             "站位为 OpenStreetMap provisional 数据，实测出入口发布后 9 张图板须整体复算",
         ]),
