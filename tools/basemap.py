@@ -91,14 +91,27 @@ def load_rail():
 
 
 def load_polys(kind):
+    """Area features only. Linear ways are excluded, not closed into polygons.
+
+    The Overpass export mixes both: osm_water.json holds `natural=water` areas
+    together with `waterway=river` centrelines. Closing a centreline produces a
+    polygon between the river's two ends, and for the culverted 护城河 that is a
+    2089 ha slab of blue across 西直门 — a river drawn as a lake covering the
+    station it runs past. Rivers belong to load_water_lines().
+    """
     out = []
     for e in _ways(os.path.join(DATA, "osm_%s.json" % kind)):
+        tags = e.get("tags", {})
+        if tags.get("waterway"):
+            continue
         geo = e.get("geometry") or []
         pts = [(p["lon"], p["lat"]) for p in geo if p.get("lon") is not None]
-        if len(pts) < 4:
+        # A ring repeats its first node; an open way does not. Anything that is
+        # not closed is a line and cannot be filled.
+        if len(pts) < 4 or pts[0] != pts[-1]:
             continue
         try:
-            g = prj(shape({"type": "Polygon", "coordinates": [pts + [pts[0]]]}))
+            g = prj(shape({"type": "Polygon", "coordinates": [pts]}))
             if g.is_valid and g.area > 2000:
                 out.append(g)
         except Exception:

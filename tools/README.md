@@ -12,6 +12,7 @@ python -m venv .venv
 .venv/bin/python tools/make_a0.py        # -> tools/out/a0-boards.pdf   9 张 A0
 .venv/bin/python tools/make_a3.py        # -> tools/out/a3-booklet.pdf  11 页 A3
 .venv/bin/python tools/make_figures.py   # -> tools/out/figures/*.png   5 张
+.venv/bin/python tools/make_3d.py        # -> tools/out/figures/3d/*.png 7 张三维鸟瞰
 ```
 
 生成结果写在 `tools/out/`，不进版本库。确认无误后再手工拷进投稿目录，并重算 `manifest.json` 里的 `sha256`。
@@ -26,7 +27,7 @@ python -m venv .venv
 
 | 文件 | 作用 |
 | --- | --- |
-| `basemap.py` | 底图与投影。所有几何投到 EPSG:32650（UTM 50N），距离与步行圈按米算而不是按度。含 `walk_ring()`：7 座逐站车站读 `data/walk_isochrones.json` 里的实测等时圈多边形，其余 14 座回退为圆（按实测中位系数 1.75） |
+| `basemap.py` | 底图与投影。所有几何投到 EPSG:32650（UTM 50N），距离与步行圈按米算而不是按度。含 `walk_ring()`：7 座逐站车站读 `data/walk_isochrones.json` 里的实测等时圈多边形，其余 14 座回退为圆（按实测中位系数 1.75）。`load_polys()` 只收闭合环，线状要素不闭合成面 |
 | `draw.py` | 三个生成器共用的绘图层：页面框、标签避让、CJK 折行、图例、比例尺、指北针。**改这里会同时影响 A0、A3 和五张图** |
 | `make_a0.py` | 9 张 A0 展板：`L-01` 廊道结构与 21 站分级，`L-02`～`L-08` 逐站一整张，`L-09` 重点区原型与数据校核 |
 | `make_a3.py` | 11 页 A3 方案册：封面、廊道总览、7 站逐站一页、廊道接驳、分期 |
@@ -35,6 +36,8 @@ python -m venv .venv
 | `audit.py` | 版式审计：逐 span 检查文字越界与文字框重叠 |
 | `fetch_base.py` / `fetch_gw.py` | 从 Overpass 拉 OSM 底图到 `data/`。`data/` 已有文件就跳过，正常情况不需要再跑 |
 | `fetch_walk.py` | 实测 7 座车站的步行等时圈到 `data/walk_isochrones.json`。需要 `AMAP_KEY` 环境变量，约 784 次请求、十几分钟。数据已在库里，正常情况不需要再跑 |
+| `fetch_buildings.py` | 从 Overpass 拉 7 座车站各 1200 米内的建筑轮廓到 `data/osm_buildings.json`（3686 栋）。`data/` 已有文件就跳过 |
+| `make_3d.py` | 7 张站域三维鸟瞰 PNG：OSM 建筑轮廓按透视相机拉体量，实测等时圈铺在地面，原同心圆虚线并置 |
 
 ### `draw.py` 里两个容易踩的地方
 
@@ -49,8 +52,11 @@ python -m venv .venv
 - `lines_by_station.json` — 车站线路对照。
 - `osm_roads.json`（2343 条分级道路）、`osm_rail.json`（244 条轨道）、`osm_green.json`、`osm_water.json` — Overpass 导出，bbox `39.925,116.295,40.045,116.385`。© OpenStreetMap contributors，ODbL。
 - `walk_isochrones.json` — 7 座逐站车站的实测步行等时圈。每站 16 个方位、每方位 7 个探测距离，共 784 条真实步行路径，按 75 米/分插值出每个方位实际能走到的直线距离。由 `fetch_walk.py` 生成，© 高德软件有限公司；只保留反算出的距离数值，不含路网数据或接口返回原文。
+- `osm_buildings.json` — 7 座逐站车站各 1200 米内的建筑轮廓，3686 栋，`make_3d.py` 拉体量用。由 `fetch_buildings.py` 生成。© OpenStreetMap contributors，ODbL。**高度标签只有 387 栋（10.5%）**，`make_3d.py` 按建筑类型估算其余并在图上区分标注；这个比例本身就是图纸必须声明的口径，不要在数据侧填平。
 
 `walk_isochrones.json` 里的 `_failed_probes` 必须是 0。这个字段是有来由的：早先一版用 8 个线程并发，17 个方位里丢 3 到 12 个，异常被吞成 0 米顶点，打印出"中位 0 米"——看着像重大发现，其实是 bug。现在固定 3 个线程、6 次退避重试，并逐站报告不完整方位。
+
+Overpass 的超时要短。`fetch_buildings.py` 早先一版设 180 秒，一座车站的连接挂死拖了 13 分钟，而重试只用 3 秒就拿到了同一份数据——健康的镜像几秒就返回，超时给长了只会让卡死的 socket 拖住整轮。现在 45 秒，三个镜像轮换。
 
 范围边界不在这里：`basemap.py` 直接读仓库自带的 `brief/site-package/geometry/provisional_boundaries.geojson`。这份边界是 provisional，不是官方红线。
 

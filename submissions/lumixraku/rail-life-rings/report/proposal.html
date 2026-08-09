@@ -110,6 +110,16 @@ code {
 <p>站域范围为**实测等时圈，不是圆**。7座逐站设计车站每站取16个方位，沿每个方位实测真实步行路径（高德步行路径规划，2026-08-09，共784条），按75米/分的步行预算反算该方位实际能走到的直线距离，连成可达边界 <span class="evidence evidence-source">[source:AMAP-WALKING]</span>。七站实测中位为5分钟174米、10分钟408米、15分钟712米 <span class="evidence evidence-depth">[depth:traffic_rail_slow_parking]</span>。</p>
 <p>此前版本用 <code>分钟 × 75米/分 ÷ 1.35绕行系数</code> 画同心圆，实测证明该做法有两处错误。其一，实测绕行系数中位为1.75而非1.35，故各圈一律画大：七站15分钟圈图面合计1526公顷，实测可达仅961公顷，虚报37%。其二且更关键，可达范围本不是圆——学知园5分钟在通畅方位可达284米，跨京藏高速方位仅38米，相差7倍；蓟门桥为40至260米。用圆表达会同时高估被切断方位、低估通畅方位，恰好抹掉本方案自己要论证的&quot;名义可达、实际绕行&quot;。实测最严重的学知园（面积较图面圆缩减77%）正是本方案标注&quot;东侧京藏高速与北五环双重切割&quot;的车站，实测把该判断从主张变为可量化事实。</p>
 <p>统筹研究范围内14座车站未实测，仍按实测中位系数1.75换算为圆并在图纸注明为估算。实测值基于高德路网，尚未计入过街信号延误、围墙断点与无障碍条件，正式成果须以现场步行网络与实测出入口位置校核；现阶段站位、道路分级、铁路与水绿底图均来自 OpenStreetMap（ODbL，© OpenStreetMap contributors）<span class="evidence evidence-source">[source:OSM-BASEMAP]</span>。</p>
+<h3>站域三维鸟瞰：等时圈与建成体量同图</h3>
+<p>7座逐站设计车站各出一张三维鸟瞰，把实测等时圈铺在地面、原同心圆以虚线并置，与建成体量放在同一张图上，用于判读切割来自哪几栋、哪条路 <span class="evidence evidence-source">[source:OSM-BUILDINGS]</span>。视点统一为站点正南、仰角31°、视场46°、正北朝上，竖向不夸大，因此7张可直接横向比较。</p>
+<figure class="proposal-figure"><img src="../assets/figures/3d/3d-xuezhiyuan.png" alt="学知园站域三维鸟瞰：京藏高速与北五环双重切割下的实测等时圈"><figcaption>学知园站域三维鸟瞰：京藏高速与北五环双重切割下的实测等时圈</figcaption></figure>
+<figure class="proposal-figure"><img src="../assets/figures/3d/3d-jimenqiao.png" alt="蓟门桥站域三维鸟瞰：绿脊中段被主干路夹持的实测等时圈"><figcaption>蓟门桥站域三维鸟瞰：绿脊中段被主干路夹持的实测等时圈</figcaption></figure>
+<figure class="proposal-figure"><img src="../assets/figures/3d/3d-xizhimen.png" alt="西直门站域三维鸟瞰：三线换乘锚点的实测等时圈与建成体量"><figcaption>西直门站域三维鸟瞰：三线换乘锚点的实测等时圈与建成体量</figcaption></figure>
+<figure class="proposal-figure"><img src="../assets/figures/3d/3d-beijingbei.png" alt="北京北站域三维鸟瞰：京张遗产门户的实测等时圈与建成体量"><figcaption>北京北站域三维鸟瞰：京张遗产门户的实测等时圈与建成体量</figcaption></figure>
+<figure class="proposal-figure"><img src="../assets/figures/3d/3d-xueyuanqiao.png" alt="学院桥站域三维鸟瞰：站城复合核心的实测等时圈"><figcaption>学院桥站域三维鸟瞰：站城复合核心的实测等时圈</figcaption></figure>
+<figure class="proposal-figure"><img src="../assets/figures/3d/3d-liudaokou.png" alt="六道口站域三维鸟瞰：社区接驳站的实测等时圈"><figcaption>六道口站域三维鸟瞰：社区接驳站的实测等时圈</figcaption></figure>
+<figure class="proposal-figure"><img src="../assets/figures/3d/3d-xitucheng.png" alt="西土城站域三维鸟瞰：绿楔与主干路之间的实测等时圈"><figcaption>西土城站域三维鸟瞰：绿楔与主干路之间的实测等时圈</figcaption></figure>
+<p>建筑轮廓来自 OpenStreetMap（ODbL）。**高度不是实测**：站域内仅387栋（10.5%）带 <code>height</code> 或 <code>building:levels</code> 标签，其余按建筑类型估算，图面以浅色和无屋顶描边区分，每张图注明两者数量。体量供空间关系判读，不作为高度依据或现状指标 <span class="evidence evidence-depth">[depth:height_massing_character]</span>。三维建筑亦非高德渲染：高德3D建筑只由其 Web端(JS API) 提供，本项目所持为 Web 服务密钥，调用返回 <code>USERKEY_PLAT_NOMATCH</code>；高德亦无对外街景接口，故无街景图。</p>
 <h3>站城一体与密度梯度</h3>
 <p>站城一体在本方案中是**首层连续性**问题，不是盖综合体：车站出入口、公交站台、非机动车停放、人行系统和建筑首层应在同一标高连续贯通，避免出闸后再上下天桥。近期动作是出入口连续雨棚、无障碍直连、统一导视与桥下空间照明改造；中期才讨论站城首层重组与地下连通。</p>
 <p>密度与用地混合按站域梯度组织：站点出入口周边最高、向外递减，混合度随距离下降，但15分钟圈以既有社区更新维持而非新建强度。**本方案只提出梯度的相对关系与控制原则，不给出具体容积率或建筑高度数值**——官方控规指标与精确边界尚未发布，容积率在指标体系中保持 unknown。任何强度结论须在取得控规、权属与市场研究后另行论证 <span class="evidence evidence-metric">[metric:floor_area_ratio]</span> <span class="evidence evidence-standard">[standard:MOHURD-CONTROL-DETAILED-PLANNING]</span> <span class="evidence evidence-depth">[depth:development_intensity_controls]</span>。</p>
@@ -164,6 +174,7 @@ code {
 <li><span class="evidence evidence-source">[source:SOURCE-REGISTRY]</span> 仓库公开资料登记表。</li>
 <li><span class="evidence evidence-source">[source:BOUNDARY-SOURCE]</span> 仓库 provisional boundaries，仅供 intake。</li>
 <li><span class="evidence evidence-source">[source:OSM-BASEMAP]</span> OpenStreetMap 底图数据，ODbL 1.0，© OpenStreetMap contributors。</li>
+<li><span class="evidence evidence-source">[source:OSM-BUILDINGS]</span> OpenStreetMap 建筑轮廓（7 站各 1200 米内共 3686 栋），三维鸟瞰体量用，ODbL 1.0；高度仅 10.5% 有标签，其余为估算。</li>
 <li><span class="evidence evidence-source">[source:AMAP-WALKING]</span> 高德（AutoNavi）步行路径规划 Web 服务，实测于 2026-08-09。</li>
 <li><span class="evidence evidence-source">[source:CASE-ONE-NORTH]</span> 新加坡 JTC One-North。</li>
 <li><span class="evidence evidence-source">[source:CASE-HAGASTADEN]</span> 斯德哥尔摩市 Hagastaden。</li>

@@ -70,6 +70,26 @@ iteration: "v0.9"
 
 统筹研究范围内14座车站未实测，仍按实测中位系数1.75换算为圆并在图纸注明为估算。实测值基于高德路网，尚未计入过街信号延误、围墙断点与无障碍条件，正式成果须以现场步行网络与实测出入口位置校核；现阶段站位、道路分级、铁路与水绿底图均来自 OpenStreetMap（ODbL，© OpenStreetMap contributors）[source:OSM-BASEMAP]。
 
+### 站域三维鸟瞰：等时圈与建成体量同图
+
+7座逐站设计车站各出一张三维鸟瞰，把实测等时圈铺在地面、原同心圆以虚线并置，与建成体量放在同一张图上，用于判读切割来自哪几栋、哪条路 [source:OSM-BUILDINGS]。视点统一为站点正南、仰角31°、视场46°、正北朝上，竖向不夸大，因此7张可直接横向比较。
+
+![学知园站域三维鸟瞰：京藏高速与北五环双重切割下的实测等时圈](assets/figures/3d/3d-xuezhiyuan.png)
+
+![蓟门桥站域三维鸟瞰：绿脊中段被主干路夹持的实测等时圈](assets/figures/3d/3d-jimenqiao.png)
+
+![西直门站域三维鸟瞰：三线换乘锚点的实测等时圈与建成体量](assets/figures/3d/3d-xizhimen.png)
+
+![北京北站域三维鸟瞰：京张遗产门户的实测等时圈与建成体量](assets/figures/3d/3d-beijingbei.png)
+
+![学院桥站域三维鸟瞰：站城复合核心的实测等时圈](assets/figures/3d/3d-xueyuanqiao.png)
+
+![六道口站域三维鸟瞰：社区接驳站的实测等时圈](assets/figures/3d/3d-liudaokou.png)
+
+![西土城站域三维鸟瞰：绿楔与主干路之间的实测等时圈](assets/figures/3d/3d-xitucheng.png)
+
+建筑轮廓来自 OpenStreetMap（ODbL）。**高度不是实测**：站域内仅387栋（10.5%）带 `height` 或 `building:levels` 标签，其余按建筑类型估算，图面以浅色和无屋顶描边区分，每张图注明两者数量。体量供空间关系判读，不作为高度依据或现状指标 [depth:height_massing_character]。三维建筑亦非高德渲染：高德3D建筑只由其 Web端(JS API) 提供，本项目所持为 Web 服务密钥，调用返回 `USERKEY_PLAT_NOMATCH`；高德亦无对外街景接口，故无街景图。
+
 ### 站城一体与密度梯度
 
 站城一体在本方案中是**首层连续性**问题，不是盖综合体：车站出入口、公交站台、非机动车停放、人行系统和建筑首层应在同一标高连续贯通，避免出闸后再上下天桥。近期动作是出入口连续雨棚、无障碍直连、统一导视与桥下空间照明改造；中期才讨论站城首层重组与地下连通。
@@ -195,6 +215,7 @@ iteration: "v0.9"
 - [source:SOURCE-REGISTRY] 仓库公开资料登记表。
 - [source:BOUNDARY-SOURCE] 仓库 provisional boundaries，仅供 intake。
 - [source:OSM-BASEMAP] OpenStreetMap 底图数据，ODbL 1.0，© OpenStreetMap contributors。
+- [source:OSM-BUILDINGS] OpenStreetMap 建筑轮廓（7 站各 1200 米内共 3686 栋），三维鸟瞰体量用，ODbL 1.0；高度仅 10.5% 有标签，其余为估算。
 - [source:AMAP-WALKING] 高德（AutoNavi）步行路径规划 Web 服务，实测于 2026-08-09。
 - [source:CASE-ONE-NORTH] 新加坡 JTC One-North。
 - [source:CASE-HAGASTADEN] 斯德哥尔摩市 Hagastaden。

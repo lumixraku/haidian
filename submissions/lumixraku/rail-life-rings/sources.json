@@ -38,6 +38,12 @@
       "usage": "Base geometry for the drawings: road network by highway class, rail lines, water, green space and station points. (c) OpenStreetMap contributors, ODbL 1.0. Extracted via the Overpass API. Existing-condition reference only; station entrances are OSM nodes, not surveyed entrances."
     },
     {
+      "id": "OSM-BUILDINGS",
+      "url": "https://www.openstreetmap.org/copyright",
+      "source_type": "osm",
+      "usage": "Building footprints within 1200 m of the 7 design-area stations, used for the 3D bird's-eye views: 3686 buildings extracted via the Overpass API on 2026-08-09. (c) OpenStreetMap contributors, ODbL 1.0. Footprints are as mapped; heights are NOT measured - only 387 (10.5%) carry height or building:levels, the remainder are estimated from building type and are rendered and labelled separately on every sheet. Massing is spatial context for reading the isochrone shape, not a height survey and not an existing-condition metric."
+    },
+    {
       "id": "AMAP-WALKING",
       "url": "https://lbs.amap.com/api/webservice/guide/api/direction",
       "source_type": "agent_inferred_from_public_data",

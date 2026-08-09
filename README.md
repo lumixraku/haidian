@@ -80,6 +80,16 @@
 
 ![5/10/15 分钟圈与三层范围传导](submissions/lumixraku/rail-life-rings/assets/figures/land-use-structure.png)
 
+### 三维鸟瞰：切割是哪几栋、哪条路
+
+7 座逐站设计车站各有一张三维鸟瞰，实测等时圈铺在地面、原同心圆虚线并置，和建成体量画在同一张图上，用来看清切割具体来自什么。视点统一（站点正南、仰角 31°、视场 46°、正北朝上、竖向不夸大），所以 7 张可以直接横向比。
+
+![学知园站域三维鸟瞰](submissions/lumixraku/rail-life-rings/assets/figures/3d/3d-xuezhiyuan.png)
+
+建筑轮廓来自 OpenStreetMap。**高度不是实测**：站域内 3686 栋里只有 387 栋（10.5%）带高度或层数标签，其余按建筑类型估算，图面用浅色和无屋顶描边区分，每张图注明两者数量。体量是给等时圈形状做空间参照的，不是高度依据。
+
+三维建筑也不是高德渲染的。高德的 3D 建筑只由 Web 端（JS API）提供，本项目手上的是 Web 服务密钥（跑那 784 条步行路径用的就是它），调 JS API 直接返回 `USERKEY_PLAT_NOMATCH`；高德另外没有对外街景接口，所以没有街景图。改用 OSM 轮廓自己拉体量，好处是与其余图纸同一套投影和配色，能从 clone 复现，署名上也只需 ODbL。
+
 ### 换乘与接驳
 
 按“同站换乘优先于出站换乘，出站换乘必须连续可导视”组织。关键换乘点为西直门（三线）、北京北至西直门（跨制式，全廊道最长最弱的一段，列为近期首要），以及六道口、西土城、知春路、牡丹园、积水潭、国家图书馆等双线换乘站。公交与需求响应接驳按轮班时刻而非仅高峰编排。
@@ -269,7 +279,9 @@ AI 只作为辅助工具，不监控普通人，也不替代医疗、交通、�
 - [结构化空间数据](submissions/lumixraku/rail-life-rings/geometry/)
 - [来源与版权说明](submissions/lumixraku/rail-life-rings/report/copyright_statement.md)
 
-底图数据来自 OpenStreetMap，© OpenStreetMap contributors，ODbL 1.0；步行等时圈由高德（AutoNavi）步行路径规划服务实测得到，© 高德软件有限公司。
+- [7 站三维鸟瞰](submissions/lumixraku/rail-life-rings/assets/figures/3d/)（实测等时圈 + OSM 建筑体量，视点统一可横向比较）
+
+底图数据与三维鸟瞰的建筑轮廓来自 OpenStreetMap，© OpenStreetMap contributors，ODbL 1.0；步行等时圈由高德（AutoNavi）步行路径规划服务实测得到，© 高德软件有限公司。
 
 ### 自检状态
 
