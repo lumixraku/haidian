@@ -1,0 +1,11 @@
+# Pinned to the versions the committed drawings were generated with.
+# Different matplotlib minor versions change text metrics, so the label
+# collision solver in draw.py can place labels differently and the output
+# will not match the installed PDFs.
+matplotlib==3.11.1
+pyproj==3.7.2
+shapely==2.1.2
+
+# Verification only (tools/audit.py, and the figure pixel diff).
+pymupdf==1.28.2
+pillow==12.3.0

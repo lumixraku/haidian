@@ -1,0 +1,562 @@
+{
+ "type": "FeatureCollection",
+ "name": "stations",
+ "note_zh": "站位来自 OpenStreetMap，仅为概念方案定位；出入口、站台与步行网络需实测替换。",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-001",
+    "name_zh": "学知园",
+    "name_en": "Xuezhiyuan",
+    "mode": "subway",
+    "lines": [
+     "27"
+    ],
+    "scope_level": "overall_design_area",
+    "design_depth": "per_station_detailed",
+    "key_area": "众智园AI自主创新加速区",
+    "nearest_key_area": "众智园AI自主创新加速区",
+    "nearest_key_area_distance_m": 0.0,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.345753,
+     40.01363
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-002",
+    "name_zh": "六道口",
+    "name_en": "Liudaokou",
+    "mode": "subway",
+    "lines": [
+     "15",
+     "27"
+    ],
+    "scope_level": "overall_design_area",
+    "design_depth": "per_station_detailed",
+    "key_area": null,
+    "nearest_key_area": "北京AI原点社区",
+    "nearest_key_area_distance_m": 684.4,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.346643,
+     39.999666
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-003",
+    "name_zh": "学院桥",
+    "name_en": "Xueyuanqiao",
+    "mode": "subway",
+    "lines": [
+     "27"
+    ],
+    "scope_level": "overall_design_area",
+    "design_depth": "per_station_detailed",
+    "key_area": "北京AI原点社区",
+    "nearest_key_area": "北京AI原点社区",
+    "nearest_key_area_distance_m": 0.0,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.347251,
+     39.986801
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-004",
+    "name_zh": "西土城",
+    "name_en": "Xitucheng",
+    "mode": "subway",
+    "lines": [
+     "10",
+     "27"
+    ],
+    "scope_level": "overall_design_area",
+    "design_depth": "per_station_detailed",
+    "key_area": null,
+    "nearest_key_area": "北京AI原点社区",
+    "nearest_key_area_distance_m": 958.3,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.347774,
+     39.974866
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-005",
+    "name_zh": "蓟门桥",
+    "name_en": "Jimenqiao",
+    "mode": "subway",
+    "lines": [
+     "27"
+    ],
+    "scope_level": "overall_design_area",
+    "design_depth": "per_station_detailed",
+    "key_area": null,
+    "nearest_key_area": "大钟寺AI产业聚集区",
+    "nearest_key_area_distance_m": 1828.4,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.348827,
+     39.966313
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-006",
+    "name_zh": "北京北",
+    "name_en": "Beijingbei",
+    "mode": "national_rail_suburban",
+    "lines": [
+     "S5"
+    ],
+    "scope_level": "overall_design_area",
+    "design_depth": "per_station_detailed",
+    "key_area": "大钟寺AI产业聚集区",
+    "nearest_key_area": "大钟寺AI产业聚集区",
+    "nearest_key_area_distance_m": 0.0,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.346187,
+     39.945906
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-007",
+    "name_zh": "西直门",
+    "name_en": "Xizhimen",
+    "mode": "subway",
+    "lines": [
+     "13",
+     "2",
+     "4"
+    ],
+    "scope_level": "overall_design_area",
+    "design_depth": "per_station_detailed",
+    "key_area": null,
+    "nearest_key_area": "大钟寺AI产业聚集区",
+    "nearest_key_area_distance_m": 530.9,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.349235,
+     39.939217
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-008",
+    "name_zh": "林萃桥",
+    "name_en": "Lincuiqiao",
+    "mode": "subway",
+    "lines": [
+     "8"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "众智园AI自主创新加速区",
+    "nearest_key_area_distance_m": 1091.5,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.36679,
+     40.0206
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-009",
+    "name_zh": "北沙滩",
+    "name_en": "Beishatan",
+    "mode": "subway",
+    "lines": [
+     "15"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "北京AI原点社区",
+    "nearest_key_area_distance_m": 1066.1,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.362043,
+     40.000124
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-010",
+    "name_zh": "清华东路西口",
+    "name_en": "Qinghua Donglu Xikou",
+    "mode": "subway",
+    "lines": [
+     "15"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "北京AI原点社区",
+    "nearest_key_area_distance_m": 962.3,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.333626,
+     39.999304
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-011",
+    "name_zh": "五道口",
+    "name_en": "Wudaokou",
+    "mode": "subway",
+    "lines": [
+     "13"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "北京AI原点社区",
+    "nearest_key_area_distance_m": 879.2,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.331702,
+     39.991478
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-012",
+    "name_zh": "知春路",
+    "name_en": "Zhichun Lu",
+    "mode": "subway",
+    "lines": [
+     "10",
+     "13"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "北京AI原点社区",
+    "nearest_key_area_distance_m": 1137.1,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.33439,
+     39.975093
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-013",
+    "name_zh": "知春里",
+    "name_en": "Zhichunli",
+    "mode": "subway",
+    "lines": [
+     "10"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "北京AI原点社区",
+    "nearest_key_area_distance_m": 1884.9,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.322928,
+     39.97495
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-014",
+    "name_zh": "牡丹园",
+    "name_en": "Mudanyuan",
+    "mode": "subway",
+    "lines": [
+     "10",
+     "19"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "北京AI原点社区",
+    "nearest_key_area_distance_m": 1283.3,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.363063,
+     39.974913
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-015",
+    "name_zh": "北太平庄",
+    "name_en": "Beitaipingzhuang",
+    "mode": "subway",
+    "lines": [
+     "19"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "大钟寺AI产业聚集区",
+    "nearest_key_area_distance_m": 2034.4,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.364124,
+     39.966771
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-016",
+    "name_zh": "人民大学",
+    "name_en": "Renmin University",
+    "mode": "subway",
+    "lines": [
+     "4"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "大钟寺AI产业聚集区",
+    "nearest_key_area_distance_m": 2855.1,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.315729,
+     39.965744
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-017",
+    "name_zh": "大钟寺",
+    "name_en": "Dazhongsi",
+    "mode": "subway",
+    "lines": [
+     "13"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "大钟寺AI产业聚集区",
+    "nearest_key_area_distance_m": 1731.9,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.339014,
+     39.965273
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-018",
+    "name_zh": "魏公村",
+    "name_en": "Weigongcun",
+    "mode": "subway",
+    "lines": [
+     "4"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "大钟寺AI产业聚集区",
+    "nearest_key_area_distance_m": 2238.2,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.317182,
+     39.956304
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-019",
+    "name_zh": "积水潭",
+    "name_en": "Jishuitan",
+    "mode": "subway",
+    "lines": [
+     "19",
+     "2"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "大钟寺AI产业聚集区",
+    "nearest_key_area_distance_m": 1030.3,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.367061,
+     39.947325
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-020",
+    "name_zh": "国家图书馆",
+    "name_en": "National Library",
+    "mode": "subway",
+    "lines": [
+     "16",
+     "4",
+     "9"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "大钟寺AI产业聚集区",
+    "nearest_key_area_distance_m": 2012.0,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.318728,
+     39.941221
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "STN-021",
+    "name_zh": "新街口",
+    "name_en": "Xinjiekou",
+    "mode": "subway",
+    "lines": [
+     "4"
+    ],
+    "scope_level": "coordinated_research_area",
+    "design_depth": "corridor_interchange",
+    "key_area": null,
+    "nearest_key_area": "大钟寺AI产业聚集区",
+    "nearest_key_area_distance_m": 738.0,
+    "coord_source": "DATA-SRC-OSM-STATIONS-20260808",
+    "coord_status": "provisional_osm_pending_official_survey"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.361274,
+     39.939429
+    ]
+   }
+  }
+ ]
+}
