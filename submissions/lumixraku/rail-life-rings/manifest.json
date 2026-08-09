@@ -95,7 +95,7 @@
       "path": "drawings/a3-booklet.pdf",
       "role": "drawing",
       "required": true,
-      "sha256": "1b1c1c4faa792a997b35f8575cc19a85cc01286e84c20a8c529e15988625ed33"
+      "sha256": "a1770d9c526b7493c306727c9521073bd960da3f6f93936dde1b97e3f826a009"
     },
     {
       "path": "drawings/a0-boards.pdf",
