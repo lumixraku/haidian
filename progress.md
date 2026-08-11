@@ -1,5 +1,12 @@
 # Progress
 
+## 2026-08-11 提交历史清洗
+
+- Branch: `main`
+- Changes: Rewrote the 14-commit `main` history to remove the `Co-Authored-By` trailers that named Claude or Anthropic from three commits. No file-tree content changed, and non-Claude co-author trailers were left intact.
+- Verification: The rewritten history contains 0 matching Claude/Anthropic co-author trailers; `git diff --exit-code origin/main^{tree} main^{tree}` passed before this log entry was added, confirming the rewrite itself preserved the repository tree. The updated history was pushed to `origin/main` with `--force-with-lease`.
+- Remaining issues: Existing clones of the old `origin/main` history must fetch and realign their local branch to the rewritten history. Upstream history was intentionally not modified.
+
 ## 2026-08-07
 
 - Branch: `main`
